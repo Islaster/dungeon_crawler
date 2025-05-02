@@ -13,6 +13,11 @@ class Mage(Player):
             charisma=6,
             wisdom=9
         )
+    
+    def calculate_hit_points(self):
+        hit_points = 1
+        increase = (self.wisdom * 0.5) + (self.intelligence * 0.5)
+        hit_points += (increase // 10)
 
     def cast_spell(self, spell_name, cost):
         if self.mana >= cost:

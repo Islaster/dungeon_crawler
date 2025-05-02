@@ -12,7 +12,6 @@ class Player:
         self.experience = experience
         self.expNeeded = expNeeded
         self.stat_points = 0
-
         self.level = 1
         self.hp = self.calculate_hp()
         self.inventory = []
@@ -45,3 +44,8 @@ class Player:
         if self.experience >= self.expNeeded:
             self.level_up()
     
+    def calculate_hit_points(self):
+        hit_points = 1
+        increase = (self.strength * 0.5) + (self.endurance * 0.5) + (self.agility * 0.5) + (self.dexterity * 0.5) + (self.wisdom * 0.5) + (self.intelligence * 0.5)
+        hit_points += (increase // 10)
+        return hit_points

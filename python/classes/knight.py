@@ -17,3 +17,8 @@ class Knight(Player):
 
     def shield_block(self):
         print(f"You raises a shield to block incoming damage!")
+
+    def calculate_hit_points(self):
+        hit_points = 1
+        increase = (self.strength * 0.5) + (self.endurance * 0.5)
+        hit_points += (increase // 10)

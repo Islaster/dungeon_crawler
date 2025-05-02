@@ -15,5 +15,7 @@ class Warrior(Player):
             wisdom=4
         )
 
-    def power_strike(self):
-        print(f"You performs a Power Strike using strength {self.strength}!")
+    def calculate_hit_points(self):
+        hit_points = 1
+        increase = (self.strength * 0.5) + (self.endurance * 0.5)
+        hit_points += (increase // 10)
