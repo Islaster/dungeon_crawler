@@ -15,6 +15,7 @@ class Player:
         self.level = 1
         self.hp = self.calculate_hp()
         self.inventory = []
+        self.equipment = {}
 
     def calculate_hp(self):
         return self.endurance * 10
