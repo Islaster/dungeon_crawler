@@ -1,2 +1,3 @@
 def game():
-    print('start game')
+    print('opening sequence')
+    
