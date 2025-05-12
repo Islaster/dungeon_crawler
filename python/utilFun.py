@@ -8,7 +8,10 @@ def battle(player, enemy):
     if choice == 1:
           attack(player, enemy)
     elif choice == 2:
-        list(map(lambda pair: print(f"{pair[0]+1}. {pair[1].name} x{pair[1].quantity}\n"), enumerate(player.battle_items)))
+        if len(player.battle_items) > 0:
+            list(map(lambda pair: print(f"{pair[0]+1}. {pair[1].name} x{pair[1].quantity}\n"), enumerate(player.battle_items)))
+        else:
+             print("You have no items.\nPress enter to go back.")
     elif choice == 3:
             if len(player.skills)> 0:
                 list(map(lambda pair: print(f"{pair[0]+1}. {pair[1].name} x{pair[1].quantity}\n"), enumerate(player.skills)))

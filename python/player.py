@@ -1,8 +1,10 @@
 class Player:
-    def __init__(self, 
+    def __init__(self,
+                 name,
                  classType = None, 
                  strength = 5, mana = 5, endurance = 5, intelligence = 5, agility = 5, dexterity = 5, luck = 5, charisma = 5, wisdom = 5, experience = 0, expNeeded = 10, 
                  skills =None):
+        self.name = name
         self.strength = strength
         self.mana = mana
         self.endurance = endurance
