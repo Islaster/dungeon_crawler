@@ -1,4 +1,4 @@
-def guild_menu():
+def guild_main_menu():
     global is_in_guild, is_guild_leader
     choice = None
     if is_in_guild and not is_guild_leader:
