@@ -1,5 +1,5 @@
 from intro import show_intro
-from main_menu import main_menu
+from menus.main_menu import main_menu
 from exit import exit_game
 from game import game
 from save import load_game
