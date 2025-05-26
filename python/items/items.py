@@ -1,8 +1,6 @@
 from .item_base import Item
-import random
 
-class Stolen_Coin_Purse(Item):
+class Moldy_Wine(Item):
     def __init__(self):
-        self.gold_amount = random.randint(5, 10)
-        super().__init__("Stolen Coin Purse", "stolen from an adventurer maybe?", self.gold_amount)
+        super().__init__("Moldy Wine Flask", "A questionable bottle of healing wine.", 5)
 

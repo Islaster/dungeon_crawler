@@ -17,5 +17,5 @@ def guild_main_menu():
         choice = input(
             "1. Join a Guild\n"
             "2. Create a Guild")
-    return choice
+    return int(choice)
     

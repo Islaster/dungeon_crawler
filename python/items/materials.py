@@ -1,21 +1,13 @@
 from .material_base import Material
 
-class Slime_Core(Material):
+class Gremlin_tooth(Material):
     def __init__(self):
-        super().__init__("Slime Core", "used for potion and magic tool creation", ["Redleaf", "Iron Ore", "Magic Dust"])
+        super().__init__("Gremlin Tooth", "A sharp fang from a Mold Gremlin.", ["Goblin Tooth"])
 
-class Redleaf(Material):
+class Rat_fang(Material):
     def __init__(self):
-        super().__init__("Redleaf", "used for potion and poison creation", ["Slime_Core", "Wormwood"])
+        super().__init__("Rat Fang", "Trophy from defeating a large rat.")
 
-class Slime_Residue(Material):
+class Broodmother_Wing(Material):
     def __init__(self):
-        super().__init__("Slime Residue", "used for potion creation.", ["Blue Petal"])
-
-class Blue_Petal(Material):
-    def __init__(self):
-        super().__init__("Blue Petal", "used for potion creation", ["Slime Residue"])
-
-class Goblin_Ear(Material):
-    def __init__(self):
-        super().__init__("Goblin Ear", "bounty trophy and guild proof", None)
+        super().__init__("Broodmother Wing", "Buzzes faintly with dark energy.")
