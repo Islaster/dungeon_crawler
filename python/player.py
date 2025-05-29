@@ -3,7 +3,7 @@ class Player:
                  name,
                  classType = None, 
                  strength = 5, mana = 5, endurance = 5, intelligence = 5, agility = 5, dexterity = 5, luck = 5, charisma = 5, wisdom = 5, experience = 0, expNeeded = 10, 
-                 skills =None):
+                 ):
         self.name = name
         self.strength = strength
         self.mana = mana
@@ -18,11 +18,23 @@ class Player:
         self.expNeeded = expNeeded
         self.stat_points = 0
         self.level = 1
-        self.skills = skills
+        self.skills = [{}]
         self.hp = self.calculate_hp()
-        self.inventory = []
-        self.equipment = {}
-        self.battle_items = []
+        self.inventory = {
+            "items":{},
+            "weapons": {},
+            "materials": {},
+            "armors":{},
+            "quest_items": {},
+            }
+        self.equipment = {
+            "armor": None,
+            "weapon": None,
+            "accessory": None
+        }
+        self.battle_items = {
+            "consumables": {},
+        }
         self.classType = classType
 
     classLookup = {
@@ -88,7 +100,7 @@ class Player:
 
     def gain_experience(self, amount):
         self.experience += amount
-        print("Gained {amount} XP.")
+        print(f"Gained {amount} XP.")
         if self.experience >= self.expNeeded:
             self.level_up()
     
@@ -105,6 +117,13 @@ class Player:
     def calculate_def(self):
        base = (self.endurance* 0.25)
        equip = 0
-       if self.equipment.armor:
-           equip = self.equipment.armor.value
+       if self.equipment["armor"]:
+           equip = self.equipment.armor.value // 10
        return base+equip
+    
+    def add_to_inventory(self, inventory_section: dict, item_name: str):
+        print(f"{self.name} acquired {item_name}x1")
+        if item_name in inventory_section:
+            inventory_section[item_name] += 1
+        else:
+            inventory_section[item_name] = 1

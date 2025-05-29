@@ -1,4 +1,7 @@
 import random
+from utils.ui import center_text
+from utils.battle import attack, skill, items, retreat
+from menus.battle_menu import main_battle_menu
 
 class Room:
     def __init__(self, name, description, enemy=None, trap=None, reward=None):
@@ -22,7 +25,7 @@ class Room:
             self.handle_reward(player)
 
     def handle_trap(self, player):
-        print(f"\n⚠️ Trap triggered: {self.trap['description']}")
+        print(f"\nTrap triggered: {self.trap['description']}")
         success = random.random() > self.trap.get("chance_to_fail", 0.5)
         if success:
             print("🛡️ You avoided the trap!")
@@ -34,36 +37,54 @@ class Room:
                 exit()
 
     def handle_combat(self, player):
-        enemy = self.enemy.copy()
-        print(f"\n⚔️ {enemy['name']} appears!")
+        print(f"\n{self.enemy.name} appears!")
 
-        while enemy["hp"] > 0 and player.hp > 0:
-            # Player attacks
-            base_damage = player.calculate_hit_points(player.classType)
-            dmg = random.randint(5, 10) + base_damage
-            enemy["hp"] -= dmg
-            print(f"You hit {enemy['name']} for {dmg} → Enemy HP: {max(0, enemy['hp'])}")
-
-            if enemy["hp"] <= 0:
-                print(f"✅ You defeated {enemy['name']}!")
-                player.gain_experience(enemy["xp"])
-                return
-
+        while self.enemy.hp > 0 and player.hp > 0:
+            choice = main_battle_menu()
+            # Player choices
+            choices = {
+                1: attack,
+                2: skill,
+                3: items,
+                4: retreat
+            }
+            action = choices.get(choice)
+            if action:
+                action(player,self.enemy)
+            else:
+                print("pick a valid option")
+            
             # Enemy attacks
-            edmg = random.randint(enemy["atk_min"], enemy["atk_max"])
+            edmg = self.enemy.calculate_hit_points()
             reduced_dmg = int(edmg - player.calculate_def())
-            reduced_dmg = max(reduced_dmg, 1)  # Minimum 1 dmg
             player.take_damage(reduced_dmg)
 
             if player.hp <= 0:
-                print("💀 You died...")
+                print(center_text("GAME OVER!!!\nYou died..."))
                 exit()
-
+            if self.enemy.hp <= 0:
+                print(center_text("You Win."))
+                if self.enemy.drops["xp"]:
+                    player.gain_experience(self.enemy.drops["xp"])
+                if self.enemy.drops["items"]:
+                    lookup = {
+                        "item": {
+                            "bool":True,
+                            "value":player.inventory['items']
+                            },
+                        "material": {
+                            "bool": True,
+                            "value":player.inventory["materials"]
+                            },
+                    }
+                    for item in self.enemy.drops["items"]:
+                        if lookup[item.type]["bool"]:
+                            player.add_to_inventory(lookup[item.type]["value"], item.name)
     def handle_reward(self, player):
         item = self.reward["item"]
         effect = self.reward["effect"]
         rtype = self.reward["type"]
-        print(f"\n🎁 You found {item} (+{effect} {rtype})")
+        print(f"\nYou found {item} (+{effect} {rtype})")
 
         if rtype == "hp":
             player.hp += effect

@@ -3,22 +3,43 @@ from items.items import Moldy_Wine
 from items.materials import Gremlin_tooth, Rat_fang, Broodmother_Wing
 
 gremlin = Monster(
-    name="Mold Gremlin",
-    strength=3, mana=0, endurance=2, intelligence=1, agility=3,
-    dexterity=2, luck=1, wisdom=0, health_points=20,
-    drops={"xp": 10, "items": [Moldy_Wine(), Gremlin_tooth()]}
+    "speed",#type
+    "Mold Gremlin",#name
+    3,#strength 
+    0,#mana 
+    2,#endurance 
+    1,#intelligence 
+    3,#agility
+    2,#dexterity 
+    1,#luck 
+    0,#wisdom
+    {"xp": 10, "items": [Moldy_Wine(), Gremlin_tooth()]}#drops
 )
 
 rat_alpha = Monster(
-    name="Spore Rat Alpha",
-    strength=5, mana=0, endurance=4, intelligence=1, agility=4,
-    dexterity=3, luck=2, wisdom=1, health_points=35,
-    drops={"xp": 25, "items": [Rat_fang()]}
+    "strength",#type
+    name="Spore Rat Alpha",#name
+    strength=5,#strength 
+    mana=0,#mana
+    endurance=4,#endurance 
+    intelligence=1,#intelligence 
+    agility=4,#agility
+    dexterity=3,#dexterity 
+    luck=2,#luck 
+    wisdom=1,#wisdom 
+    drops={"xp": 25, "items": [Rat_fang()]}#drops
 )
 
 broodmother = Monster(
-    name="Carrionfly Broodmother",
-    strength=7, mana=0, endurance=5, intelligence=3, agility=5,
-    dexterity=3, luck=2, wisdom=2, health_points=50,
-    drops={"xp": 50, "items": [Broodmother_Wing()]}
+    "strength",#type
+    "Carrionfly Broodmother",#name
+    7,#strength
+    0,#mana 
+    5,#endurance
+    3,#intelligence 
+    5,#agility
+    3,#dexterity 
+    2,#luck 
+    2,#wisdom
+    {"xp": 50, "items": [Broodmother_Wing()]}#drops
 )

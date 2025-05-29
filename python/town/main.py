@@ -1,22 +1,22 @@
 from menus.town_menu import town_menu
-from .util import travel_to
+from utils.town import travel_to
 
 def town():
     global secret_key
     #town choices
-    town_choice = town_menu()
+    choice = town_menu()
     
-    choices = {
+    town_choices = {
         #going home to sleep (ends the day)
-        1: travel_to("home"),
+        1: lambda: travel_to("home"),
         #hunter association choices
-        2: travel_to("hunter association"),
-        3: travel_to("guild"),
+        2: lambda: travel_to("hunter association"),
+        3: lambda: travel_to("guild"),
         #going to a dungeon
-        4: travel_to("portal hub")
+        4: lambda: travel_to("portals")
     }
 
-    action = choices.get(town_choice)
+    action = town_choices.get(choice)
     if action:
         action()
  

@@ -1,7 +1,7 @@
 from menus.home_menu import home_menu
 from game.time import advance_day, change_time_of_day, get_day
 from intro import center_text
-from .util import travel_to
+from utils.town import travel_to
 
 
 def home():
