@@ -15,4 +15,4 @@ def Rotten_Hollow(player):
         room.enter(player)
 
    print("\n🏁 Dungeon Cleared!")
-   print(f"HP: {player.hp} | XP: {player.experience}/{player.expNeeded} | Inventory: {player.inventory}") 
+   print(f"HP: {player.hp} | LVL: {player.level} | XP: {player.experience}/{player.expNeeded} | Inventory: {player.inventory}") 

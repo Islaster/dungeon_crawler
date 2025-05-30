@@ -1,3 +1,5 @@
+from items.weapons import Wooden_Sword
+
 class Player:
     def __init__(self,
                  name,
@@ -29,7 +31,7 @@ class Player:
             }
         self.equipment = {
             "armor": None,
-            "weapon": None,
+            "weapon": Wooden_Sword(),
             "accessory": None
         }
         self.battle_items = {
@@ -84,15 +86,16 @@ class Player:
         print(f"{self.name} takes {amount} damage. HP is now {self.hp}.")
 
     def level_up(self):
-        self.level += 1
-        self.experience = 0
-        if self.level < 5:
-            self.stat_points += 5
-            print("acquired 5 stat points")
-        else:
-            self.stat_points += 3
-            print("acquired 3 stat points")
-        self.expNeeded += int(self.expNeeded * 0.25)
+        while self.experience > self.expNeeded:
+            self.experience -= self.expNeeded
+            self.expNeeded += int(self.expNeeded * 0.25)
+            self.level += 1
+            if self.level < 5:
+                self.stat_points += 5
+                print("acquired 5 stat points")
+            else:
+                self.stat_points += 3
+                print("acquired 3 stat points")
         self.hp = self.calculate_hp()
         print("leveled up 1!")
     def show_level(self):
@@ -106,13 +109,14 @@ class Player:
     
     def calculate_hit_points(self, classType=None):
         hit_points = 0
+        weapon = self.equipment["weapon"].attack
         if classType == 'archer':
             hit_points = (self.agility *0.5) + (self.dexterity*0.5)
         elif classType == "mage":
             hit_points = (self.wisdom*0.5) + (self.intelligence* 0.5)
         elif classType == 'warrior':
             hit_points = (self.strength*0.5) + (self.endurance * 0.5)
-        return 1 + (hit_points // 10)
+        return 1 + (hit_points // 10) + weapon
     
     def calculate_def(self):
        base = (self.endurance* 0.25)
