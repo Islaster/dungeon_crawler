@@ -13,5 +13,6 @@ def portal_hub():
             action = portals.get(portal_choice)
             if action:
                 action(hero)
+                break
         elif choice == 2:
             portal_choice = secret_dungeons()

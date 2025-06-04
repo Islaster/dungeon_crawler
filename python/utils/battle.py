@@ -1,11 +1,12 @@
 import random
+from .town import travel_to
+from monsters.registry import monster_lookup
 
 def attack(player, enemy):
-    print(f"player calc hit points: {player.calculate_hit_points()}")
-    print(f"enemy def calc: {enemy.calculate_def()}")
     calculate_damage = player.calculate_hit_points() - enemy.calculate_def()
     if calculate_damage < 0:
         calculate_damage = 0
+    calculate_damage = crit(calculate_damage)
     enemy.hp -= calculate_damage
     print(f"{enemy.name} lost {calculate_damage} has {enemy.hp}hp")
 
@@ -15,11 +16,35 @@ def skill(player, enemy):
         choice = input("press B to go back.")
 
 def items(player, enemy):
-    if len(player.battle_items) < 1:
-        print("You have no skills.\n")
-        choice = input("press B to go back.")
+    while True:
+        lookup = {}
+        if len(player.battle_items) < 1:
+            print("You have no skills.\n")
+            main_choice = input("press B to go back.\n").strip().lower()
+            if main_choice == "b":
+                return
+        for index, (key, value) in enumerate(player.battle_items["consumables"].items(), start=1):
+            print(f"Press {index} to look at {key}\n")
+            lookup[str(index)] = key
+        print("press B to go back\n")
+        choice = input("please choose one of the options\n").strip().lower()
+        if choice in lookup:
+            item = player.battle_items["consumables"][lookup[choice]]
+            item["value"].show_stats()
+        elif choice == "b":
+            return
+        use_item = input("press y to use item\n press n to go back\n").strip().lower()
+        if use_item == "y":
+            item["value"].use(player)
+            return
+        elif use_item == "n":
+            continue
     
-def retreat(player, enemy, chance=0.65) -> bool:
+
+    
+def retreat(player, enemy, chance=0.65,) -> bool:
+    phrases = monster_lookup
+
     agi = player.agility
     dex = player.dexterity
     lck = player.luck
@@ -34,9 +59,18 @@ def retreat(player, enemy, chance=0.65) -> bool:
         return False
     else:
         player_chance /= 100
-        chance += (player_chance*0.3)
+        chance += player_chance
         if random.random() <= chance:
-            return True
+            print(phrases[enemy.name]["escape"])
+            travel_to("town")
+            return
         else:
-            return False
+            print(phrases[enemy.name]["escape_fail"])
+            return
+
+def crit(damage):
+    if random.random() <= .10:
+       return (damage * 2)
+    else: 
+        return damage
 

@@ -1,4 +1,4 @@
-from .item_base import Item
+from items.item_base import Item
 
 class Material(Item):
     def __init__(self, name, description, combinable_with=None):

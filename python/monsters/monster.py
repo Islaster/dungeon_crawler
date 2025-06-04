@@ -41,10 +41,10 @@ class Monster:
     def calculate_hit_points(self):
         hit_points = 0
         if self.type == "strength":
-            (self.strength*0.5) + (self.endurance * 0.5)
+            hit_points = (self.strength*0.5) + (self.endurance * 0.5)
         elif self.type == "speed":
-            (self.agility *0.5) + (self.dexterity*0.5)
+            hit_points = (self.agility *0.5) + (self.dexterity*0.5)
         elif self.type == "magic":
-            (self.wisdom*0.5) + (self.intelligence* 0.5)
+            hit_points = (self.wisdom*0.5) + (self.intelligence* 0.5)
 
-        return 1 + (hit_points // 10)
+        return 1 + (hit_points * 0.75)

@@ -38,7 +38,7 @@ class Room:
 
     def handle_combat(self, player):
         print(f"\n{self.enemy.name} appears!")
-
+        player.check_for_battle_items()
         while self.enemy.hp > 0 and player.hp > 0:
             choice = main_battle_menu()
             # Player choices
@@ -55,9 +55,11 @@ class Room:
                 print("pick a valid option")
             
             # Enemy attacks
-            edmg = self.enemy.calculate_hit_points()
-            reduced_dmg = int(edmg - player.calculate_def())
-            player.take_damage(reduced_dmg)
+            if self.enemy.hp > 0:
+                edmg = self.enemy.calculate_hit_points()
+                print(f"enemy attack does {edmg}")
+                reduced_dmg = int(edmg - player.calculate_def())
+                player.take_damage(reduced_dmg)
 
             if player.hp <= 0:
                 print(center_text("GAME OVER!!!\nYou died..."))
@@ -91,5 +93,3 @@ class Room:
             print(f"{player.name}'s HP restored to {player.hp}")
         elif rtype == "xp":
             player.gain_experience(effect)
-
-        player.inventory.append(item)
